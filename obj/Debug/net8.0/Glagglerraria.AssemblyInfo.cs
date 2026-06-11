@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Glagglerraria")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a642dd2106d6f38f4dda74540194903adadfe62")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+379d0688b149aef4ffe0877297909bd8db2ae6b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("Glagglerraria")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Glagglerraria")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

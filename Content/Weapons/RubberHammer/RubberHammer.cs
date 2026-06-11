@@ -29,7 +29,7 @@ namespace Glagglerraria.Content.Weapons.RubberHammer
 		}
 
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone) {
-			Projectile.NewProjectile(player.GetSource_FromThis(), target.position, Vector2.Zero, ProjectileID.Volcano, hit.Damage, 5, player.whoAmI);
+			Projectile.NewProjectile(player.GetSource_FromThis(), target.position, Vector2.Zero, ProjectileID.Volcano, hit.Damage, hit.Knockback, player.whoAmI);
 			Vector2 direction = (target.Center - player.Center).SafeNormalize(Vector2.UnitX);
 			player.velocity	= new Vector2(14f, 20f) * -direction;
 		}
