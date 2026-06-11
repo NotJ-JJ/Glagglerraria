@@ -39,6 +39,8 @@ namespace Glagglerraria.Content.Bosses.Enphosian
         int moveTimer = 400;
         int laserTimer = 50;
         int move = 1;
+        int movedir = 1;
+        float angle = 0;
         public override void AI()
         {
             if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
@@ -48,16 +50,16 @@ namespace Glagglerraria.Content.Bosses.Enphosian
 
             Player target = Main.player[NPC.target];
 
-            if (target.dead)
+            if (target.dead) // DESPAWN
             {
-                NPC.velocity.Y = -6f;
-                NPC.EncourageDespawn(10);
+                NPC.velocity.Y = -14f;
+                NPC.EncourageDespawn(5);
                 return;
             }
 
             moveTimer--;
             laserTimer--;
-            if (move == 1)
+            if (move == 1) // FLOAT ABOVE ATTACK
             {
                 FloatAbovePlayer(target.Center, NPC, 15, 30, target.Center + new Vector2(0, -350), 270,0);
 
@@ -68,7 +70,7 @@ namespace Glagglerraria.Content.Bosses.Enphosian
                     ShootProjectile(NPC.GetSource_FromAI(), target.Center, 7, ProjectileID.CultistBossFireBallClone, false, 1, 0, 0, NPC.Center, 10, 15);
                 }
             }
-            else
+            else if (move == 2) // FLOAT SIDE ATTACK
             {
                 Vector2 left = target.Center + new Vector2(-500, 0);
                 Vector2 right = target.Center + new Vector2(500, 0);
@@ -78,10 +80,14 @@ namespace Glagglerraria.Content.Bosses.Enphosian
 
                 if (leftDistance < rightDistance)
                 {
+                    movedir = Main.rand.Next(1);
+                    angle = -90;
                     FloatAbovePlayer(target.Center, NPC, 15, 30, right, 270, 0);
                 }
                 else
                 {
+                    movedir = Main.rand.Next(2);
+                    angle = 90;
                     FloatAbovePlayer(target.Center, NPC, 15, 30, left, 270, 0);
                 }
 
@@ -92,20 +98,59 @@ namespace Glagglerraria.Content.Bosses.Enphosian
                     ShootProjectile(NPC.GetSource_FromAI(), target.Center, 10, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 5, (int) MathHelper.Lerp(25,10,1 - lifeRatio));
                 }
             }
-
-            if (moveTimer == 0)
+            else if (move == 3) // ROTATE AROUND ATTACK
             {
-                moveTimer = 400;
-                laserTimer = (int)((float)(75 * (float)((float)NPC.life / (float)NPC.lifeMax))) + 1;
-                if (move == 1)
+                if (movedir == 1)
                 {
-                    laserTimer = (int)((float)(20 * (float)((float)NPC.life / (float)NPC.lifeMax))) + 1;
-                    moveTimer = 200;
-                    move = 2;
-                    return;
+                    angle+=2;
+                    FloatAbovePlayer(target.Center, NPC, 13, 10, target.Center + new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(angle))*500, 270, 0);
+                }
+                else
+                {
+                    angle-=2;
+                    FloatAbovePlayer(target.Center, NPC, 13, 10, target.Center + new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(angle))*500, 270, 0);
                 }
 
-                move = 1;
+                if (laserTimer <= 0)
+                {
+                    float lifeRatio = (float)NPC.life / (float)NPC.lifeMax;
+                    laserTimer = (int) MathHelper.Lerp(25,10,1 - lifeRatio);
+                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 10, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 5, (int) MathHelper.Lerp(25,10,1 - lifeRatio));
+                }
+            }
+
+            if (moveTimer == 0) // CHANGE ATTACKS
+            {
+                float lifeRatio = (float)NPC.life / (float)NPC.lifeMax;
+                
+                if (move == 1)
+                {
+                    laserTimer = (int) MathHelper.Lerp(30,3,1 - lifeRatio);
+                    moveTimer = 200;
+
+                    move = 2;
+                }
+                else if (move == 2) //SPNN
+                {
+                    moveTimer = 250;
+                    laserTimer = (int) MathHelper.Lerp(25,10,1 - lifeRatio);
+                    
+
+                    move = 3;
+                }
+                else if (move == 3)
+                {
+                    angle = 0;
+                    moveTimer = 400;
+                    laserTimer = (int) MathHelper.Lerp(50,35,1 - lifeRatio);
+
+                    move = 1;
+                }
+                
+                if (lifeRatio < 0.5f) // Move faster below half hp
+                {
+                    moveTimer = (moveTimer/2)+50;
+                }
             }
         }
 
@@ -129,6 +174,7 @@ namespace Glagglerraria.Content.Bosses.Enphosian
             }
 
         }
+
         public static void ShootProjectile(IEntitySource source, Vector2 targetPosition, float speed, int type, bool hasTileCollide, int count, float startAngle, float angleDecrement, Vector2 startPosition, float radius, int damage)
         {
             Vector2 distance = targetPosition - startPosition;
