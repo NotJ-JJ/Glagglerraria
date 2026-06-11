@@ -61,7 +61,7 @@ namespace Glagglerraria.Content.Bosses.Enphosian
             laserTimer--;
             if (move == 1) // FLOAT ABOVE ATTACK
             {
-                FloatAbovePlayer(target.Center, NPC, 15, 30, target.Center + new Vector2(0, -350), 270,0);
+                FloatAbovePlayer(target.Center, NPC, 15, 30, target.Center + new Vector2(0, -350), 270,1);
 
                 if (laserTimer <= 0)
                 {
@@ -80,14 +80,14 @@ namespace Glagglerraria.Content.Bosses.Enphosian
 
                 if (leftDistance < rightDistance)
                 {
-                    movedir = Main.rand.Next(1);
-                    angle = -90;
+                    movedir = 1;
+                    angle = -60;
                     FloatAbovePlayer(target.Center, NPC, 15, 30, right, 270, 0);
                 }
                 else
                 {
-                    movedir = Main.rand.Next(2);
-                    angle = 90;
+                    movedir = 2;
+                    angle = 130;
                     FloatAbovePlayer(target.Center, NPC, 15, 30, left, 270, 0);
                 }
 
@@ -100,15 +100,14 @@ namespace Glagglerraria.Content.Bosses.Enphosian
             }
             else if (move == 3) // ROTATE AROUND ATTACK
             {
+                angle+=2; // 0.75 seconds to rotate 90 degrees
                 if (movedir == 1)
                 {
-                    angle+=2;
-                    FloatAbovePlayer(target.Center, NPC, 13, 10, target.Center + new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(angle))*500, 270, 0);
+                    FloatAbovePlayer(target.Center, NPC, 13, 10, target.Center + new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(angle))*380, 270, 0);
                 }
                 else
                 {
-                    angle-=2;
-                    FloatAbovePlayer(target.Center, NPC, 13, 10, target.Center + new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(angle))*500, 270, 0);
+                    FloatAbovePlayer(target.Center, NPC, 13, 10, target.Center + new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(angle))*350, 270, 0);
                 }
 
                 if (laserTimer <= 0)
@@ -126,16 +125,15 @@ namespace Glagglerraria.Content.Bosses.Enphosian
                 if (move == 1)
                 {
                     laserTimer = (int) MathHelper.Lerp(30,3,1 - lifeRatio);
-                    moveTimer = 200;
+                    moveTimer = 300;
 
                     move = 2;
                 }
                 else if (move == 2) //SPNN
                 {
-                    moveTimer = 250;
+                    moveTimer = 200;
                     laserTimer = (int) MathHelper.Lerp(25,10,1 - lifeRatio);
                     
-
                     move = 3;
                 }
                 else if (move == 3)
