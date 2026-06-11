@@ -45,11 +45,22 @@ Mods: {
 				DisplayName: Giggle Guitar
 				Tooltip: ""
 			}
+
+			GiggleBulletAmmo: {
+				DisplayName: Giggle Bullet Ammo
+				Tooltip: ""
+			}
+
+			GigglePistol: {
+				DisplayName: Giggle Pistol
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
 			Giggler.DisplayName: Giggler
 			GreatGlag.DisplayName: Great Glag
+			GiggleBullet.DisplayName: Giggle Bullet
 		}
 
 		Buffs: {
