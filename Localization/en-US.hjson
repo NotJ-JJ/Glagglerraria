@@ -1,0 +1,69 @@
+Mods: {
+	Glagglerraria: {
+		Items: {
+			GigglerStaff: {
+				DisplayName: Giggler
+				Tooltip: A Giggler will fight for you
+			}
+
+			GreatGlagStaff: {
+				DisplayName: Great Glag
+				Tooltip: The Great Glag will fight for you
+			}
+
+			GiggleBat: {
+				Tooltip: ""
+				DisplayName: Giggle Bat
+			}
+
+			GlaaberClub: {
+				Tooltip: ""
+				DisplayName: Glaaber Club
+			}
+
+			HungryHam: {
+				Tooltip: ""
+				DisplayName: Hungry Ham
+			}
+
+			GlooberSign: {
+				Tooltip: ""
+				DisplayName: Gloober Sign
+			}
+
+			Gemblade: {
+				DisplayName: Gemblade
+				Tooltip: ""
+			}
+
+			RubberHammer: {
+				DisplayName: Rubber Hammer
+				Tooltip: ""
+			}
+
+			GiggleGuitar: {
+				DisplayName: Giggle Guitar
+				Tooltip: ""
+			}
+		}
+
+		Projectiles: {
+			Giggler.DisplayName: Giggler
+			GreatGlag.DisplayName: Great Glag
+		}
+
+		Buffs: {
+			GigglerBuff: {
+				DisplayName: Giggler
+				Description: A Giggler will fight for you
+			}
+
+			GreatGlagBuff: {
+				DisplayName: Great Glag
+				Description: The Great Glag will fight for you
+			}
+		}
+
+		NPCs.Enphosian.DisplayName: Enphosian
+	}
+}
