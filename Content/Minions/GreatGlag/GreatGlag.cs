@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Glagglerraria.Content.Minions.Giggler;
 
 namespace Glagglerraria.Content.Minions.GreatGlag
 {
@@ -31,7 +30,6 @@ namespace Glagglerraria.Content.Minions.GreatGlag
 			ItemID.Sets.GamepadWholeScreenUseRange[Type] = true;
 			ItemID.Sets.LockOnIgnoresCollision[Type] = true;
 			ItemID.Sets.StaffMinionSlotsRequired[Type] = 3f;
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GigglerStaff>();
 		}
 
 		public override void SetDefaults() {

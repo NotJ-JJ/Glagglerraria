@@ -1,128 +1,31 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Glagglerraria.Content.Minions.GreatGlag;
 
-namespace Glagglerraria.Content.Minions.Giggler
+namespace Glagglerraria.Content.Minions.GuitarGlooble
 {
-	public class GigglerBuff : ModBuff
+	public class GuitarGlooble : ModProjectile
 	{
-		public override void SetStaticDefaults() {
-			Main.buffNoSave[Type] = true;
-			Main.buffNoTimeDisplay[Type] = true;
-		}
-
-		public override void Update(Player player, ref int buffIndex) {
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<Giggler>()] > 0) {
-				player.buffTime[buffIndex] = 18000;
-			}
-			else {
-				player.DelBuff(buffIndex);
-				buffIndex--;
-			}
-		}
-	}
-
-	public class GigglerStaff : ModItem
-	{
-		public override void SetStaticDefaults() {
-			ItemID.Sets.GamepadWholeScreenUseRange[Type] = true;
-			ItemID.Sets.LockOnIgnoresCollision[Type] = true;
-			ItemID.Sets.StaffMinionSlotsRequired[Type] = 1f;
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GreatGlagStaff>();
-		}
-
-		public override void SetDefaults() {
-			Item.damage = 4;
-			Item.knockBack = 2f;
-			Item.mana = 5;
-			Item.width = 32;
-			Item.height = 32;
-			Item.useTime = 36;
-			Item.useAnimation = 36;
-			Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.value = Item.sellPrice(gold: 2);
-			Item.rare = ItemRarityID.Yellow;
-			Item.UseSound = SoundID.Item44;
-			Item.noMelee = true;
-			Item.DamageType = DamageClass.Summon;
-			Item.buffType = ModContent.BuffType<GigglerBuff>();
-			Item.shoot = ModContent.ProjectileType<Giggler>();
-		}
-
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
-			position = Main.MouseWorld;
-			player.LimitPointToPlayerReachableArea(ref position);
-		}
-
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
-			player.AddBuff(Item.buffType, 2);
-			return true;
-		}
-
-		 public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.Daybloom, 5);
-			recipe.AddTile(TileID.Cloud);
-			recipe.Register();
-        }
-	}
-
-	public class Giggler : ModProjectile
-	{
-		public override void SetStaticDefaults() {
-			ProjectileID.Sets.MinionTargettingFeature[Type] = true;
-			Main.projPet[Type] = true;
-			ProjectileID.Sets.MinionSacrificable[Type] = true;
-			ProjectileID.Sets.CultistIsResistantTo[Type] = false;
-		}
-
 		public sealed override void SetDefaults() {
 			Projectile.width = 32;
 			Projectile.height = 32;
 			Projectile.scale = 1f;
-			Projectile.tileCollide = false;
+			Projectile.tileCollide = true;
 			Projectile.friendly = true;
-			Projectile.minion = true;
-			Projectile.DamageType = DamageClass.Summon;
-			Projectile.minionSlots = 1f;
+			Projectile.DamageType = DamageClass.Melee;
 			Projectile.penetrate = -1;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 3;
+			Projectile.timeLeft = 6000;
 		}
-
 		public override bool? CanCutTiles() {
 			return false;
 		}
 
-		public override bool MinionContactDamage() {
-			return true;
-		}
-
 		public override void AI() {
 			Player owner = Main.player[Projectile.owner];
-			if (!CheckActive(owner)) {
-				return;
-			}
 			GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
 			SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
 			Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
-			Visuals();
-		}
-
-		private bool CheckActive(Player owner) {
-			if (owner.dead || !owner.active) {
-				owner.ClearBuff(ModContent.BuffType<GigglerBuff>());
-				return false;
-			}
-			if (owner.HasBuff(ModContent.BuffType<GigglerBuff>())) {
-				Projectile.timeLeft = 2;
-			}
-			return true;
 		}
 
 		private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition) {
@@ -214,10 +117,6 @@ namespace Glagglerraria.Content.Minions.Giggler
 					Projectile.velocity.Y = -0.05f;
 				}
 			}
-		}
-
-		private void Visuals() {
-			Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
 		}
 	}
 }

@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Glagglerraria.Content.Utils;
+using Microsoft.Xna.Framework;
 
 namespace Glagglerraria.Content.Weapons.GlooberSign
 {
@@ -24,15 +24,35 @@ namespace Glagglerraria.Content.Weapons.GlooberSign
 			Item.UseSound = SoundID.Item1;
 		}
 
+		public override bool AltFunctionUse(Player player) => true;
         public override bool? UseItem(Player player)
         {
 			CustomPlayerVariable modplayer = player.GetModPlayer<CustomPlayerVariable>();
-            if (modplayer.GlooberHeal <= 0)
-            {
-                player.Heal(50);
-				modplayer.GlooberHeal = 1200;
+			if (player.altFunctionUse == 2)
+            {	
+				if (modplayer.GlooberHeal <= 0)
+				{
+					player.Heal(80);
+					modplayer.GlooberHeal=1200;
+				}
+				Item.noMelee=true;
+				Item.useStyle=ItemUseStyleID.HoldUp;
+				return true;
             }
-			return base.UseItem(player);
+			Item.noMelee=false;
+			Item.useStyle=ItemUseStyleID.Swing;
+			return true;
+        }
+
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (player.altFunctionUse == 2)
+			{
+				modifiers.HideCombatText();
+				CustomPlayerVariable modplayer = player.GetModPlayer<CustomPlayerVariable>();
+				modplayer.target = target;
+				modifiers.ModifyHitInfo+=modplayer.hitnpc;
+			}
         }
 	}
 }

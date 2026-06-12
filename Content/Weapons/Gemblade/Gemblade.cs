@@ -27,21 +27,30 @@ namespace Glagglerraria.Content.Weapons.Gemblade
 		public override bool? UseItem(Player player)
         {
             CustomPlayerVariable modPlayer = player.GetModPlayer<CustomPlayerVariable>();
-			if (modPlayer.Gembladeparry <= -20)
-			{
-				if (player.altFunctionUse == 2)
-            {
-				modPlayer.Gembladeparry = 15;
+			if (player.altFunctionUse == 2)
+            {	
+				if (modPlayer.Gembladeparry <= -20)
+				{
+					modPlayer.Gembladeparry = 15;
+				}
+				Item.noMelee=true;
 				Item.useStyle = ItemUseStyleID.Guitar;
-				Item.noMelee = true;
-            }
-            else
-            {
-				Item.noMelee = false;
-				Item.useStyle = ItemUseStyleID.Swing;
-            }
+				return true;
+            }		
+			Item.noMelee=false;
+			Item.useStyle=ItemUseStyleID.Swing;
+			return true;
+        }
+
+		public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (player.altFunctionUse == 2)
+			{
+				modifiers.HideCombatText();
+				CustomPlayerVariable modplayer = player.GetModPlayer<CustomPlayerVariable>();
+				modplayer.target = target;
+				modifiers.ModifyHitInfo+=modplayer.hitnpc;
 			}
-			return base.UseItem(player);
         }
 	}
 }

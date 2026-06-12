@@ -1,3 +1,6 @@
+using Glagglerraria.Content.Minions.GuitarGlooble;
+using Glagglerraria.Content.Utils;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,6 +29,35 @@ namespace Glagglerraria.Content.Weapons.GiggleGuitar
 			target.AddBuff(BuffID.Confused,120);
 		}
 
-		//add the glooble im too lazy rn
+		public override bool AltFunctionUse(Player player) => true;
+		public override bool? UseItem(Player player)
+        {
+			CustomPlayerVariable modPlayer = player.GetModPlayer<CustomPlayerVariable>();
+			if (player.altFunctionUse == 2)
+            {
+				if (modPlayer.GuitarGloobleSummon < 0)
+				{
+					modPlayer.GuitarGloobleSummon=6000;
+					Projectile.NewProjectile(player.GetSource_FromThis(),Item.Center,Vector2.Zero,ModContent.ProjectileType<GuitarGlooble>(),0,0,Main.myPlayer);
+				}
+				Item.noMelee=true;
+				Item.useStyle=ItemUseStyleID.HoldUp;
+				return true;
+            }		
+			Item.noMelee=false;
+			Item.useStyle=ItemUseStyleID.Swing;
+			return true;
+        }
+
+		public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (player.altFunctionUse == 2)
+			{
+				modifiers.HideCombatText();
+				CustomPlayerVariable modplayer = player.GetModPlayer<CustomPlayerVariable>();
+				modplayer.target = target;
+				modifiers.ModifyHitInfo+=modplayer.hitnpc;
+			}
+        }
 	}
 }

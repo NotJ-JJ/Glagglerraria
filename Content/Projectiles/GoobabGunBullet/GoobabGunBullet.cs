@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Glagglerraria.Content.Utils;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -52,15 +52,15 @@ namespace Glagglerraria.Content.Projectiles.GoobabGunBullet
 			{
 				modifiers.DefenseEffectiveness *= 0f;
 				modifiers.HideCombatText();
-				target3 = target;
+				target3=target;
 				modifiers.ModifyHitInfo+=hitnpc;
 			}
         }
 
-		private void hitnpc(ref NPC.HitInfo info)
+		public void hitnpc(ref NPC.HitInfo info)
 		{
 			target3.HealEffect(info.Damage);
-			if ((target3.life+=info.Damage*2)>=target3.lifeMax)
+			if ((target3.life+=info.Damage)>=target3.lifeMax)
 			{
 				target3.life = target3.lifeMax;
 			}
