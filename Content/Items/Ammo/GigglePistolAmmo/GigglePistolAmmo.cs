@@ -1,11 +1,11 @@
-﻿using Glagglerraria.Content.Projectiles.GiggleBullet;
+﻿using Glagglerraria.Content.Projectiles.GigglePistolBullet;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Glagglerraria.Content.Items.Ammo.GiggleBulletAmmo
+namespace Glagglerraria.Content.Items.Ammo.GigglePistolAmmo
 {
-	public class GiggleBulletAmmo : ModItem
+	public class GigglePistolAmmo : ModItem
 	{
 		public override void SetDefaults() {
 			Item.width = 14;
@@ -19,9 +19,9 @@ namespace Glagglerraria.Content.Items.Ammo.GiggleBulletAmmo
 			Item.knockBack = 1f;
 			Item.value = Item.buyPrice(copper:5);
 			Item.rare = ItemRarityID.Yellow;
-			Item.shoot = ModContent.ProjectileType<GiggleBullet>();
+			Item.shoot = ModContent.ProjectileType<GigglePistolBullet>();
 
-			Item.ammo = Item.type; // Important. The first item in an ammo class sets the AmmoID to its type
+			Item.ammo = Item.type;
 		}
 	}
 }

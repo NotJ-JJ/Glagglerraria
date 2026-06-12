@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace Glagglerraria.Content.Projectiles.GiggleBullet
+namespace Glagglerraria.Content.Projectiles.GigglePistolBullet
 {
-	public class GiggleBullet : ModProjectile
+	public class GigglePistolBullet : ModProjectile
 	{
 
 		public ref float DelayTimer => ref Projectile.ai[1];
