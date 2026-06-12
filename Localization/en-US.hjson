@@ -70,6 +70,11 @@ Mods: {
 				DisplayName: Goobab Gun
 				Tooltip: ""
 			}
+
+			GazoPistol: {
+				DisplayName: Gazo Pistol
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -78,6 +83,7 @@ Mods: {
 			GiggleBullet.DisplayName: Giggle Bullet
 			GigglePistolBullet.DisplayName: Giggle Pistol Bullet
 			GoobabGunBullet.DisplayName: Goobab Gun Bullet
+			GazoPistolBullet.DisplayName: Gazo Pistol Bullet
 		}
 
 		Buffs: {

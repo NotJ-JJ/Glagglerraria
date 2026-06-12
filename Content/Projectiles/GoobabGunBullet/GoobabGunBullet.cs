@@ -24,7 +24,7 @@ namespace Glagglerraria.Content.Projectiles.GoobabGunBullet
 			{
 				modifiers.ArmorPenetration+=999;
 			modifiers.DisableSound();
-			modifiers.SourceDamage*=0.2f;
+			modifiers.SourceDamage*=0.3f;
 			target2 = target;
 			modifiers.ModifyHurtInfo+=hitplayer;
 			}

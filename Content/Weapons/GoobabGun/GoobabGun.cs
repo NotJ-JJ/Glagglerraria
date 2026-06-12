@@ -11,7 +11,6 @@ namespace Glagglerraria.Content.Weapons.GoobabGun
 		public override void SetDefaults() {
 			Item.width = 42;
 			Item.height = 30;
-
 			Item.autoReuse = true;
 			Item.damage = 30;
 			Item.DamageType = DamageClass.Ranged;
@@ -24,7 +23,6 @@ namespace Glagglerraria.Content.Weapons.GoobabGun
 			Item.UseSound = SoundID.Item11;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.value = Item.buyPrice(gold: 1);
-
 			Item.shoot = ModContent.ProjectileType<GoobabGunBullet>();
 			Item.useAmmo = ModContent.ItemType<GoobabGunAmmo>();
 		}
