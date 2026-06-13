@@ -41,112 +41,84 @@ namespace Glagglerraria.Content.Bosses.Enphosian
         int move = 1;
         int movedir = 1;
         float angle = 0;
+
         public override void AI()
         {
-            if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
-            {
+            moveTimer--;
+            laserTimer--;
+
+            if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active){
                 NPC.TargetClosest(true);
             }
 
             Player target = Main.player[NPC.target];
-
-            if (target.dead) // DESPAWN
-            {
+            if (target.dead){ // DESPAWN
                 NPC.velocity.Y = -14f;
                 NPC.EncourageDespawn(5);
                 return;
             }
 
-            moveTimer--;
-            laserTimer--;
-            if (move == 1) // FLOAT ABOVE ATTACK
-            {
+            if (move == 1){ // FLOAT ABOVE ATTACK
                 FloatAbovePlayer(target.Center, NPC, 15, 30, target.Center + new Vector2(0, -350), 270,1);
 
-                if (laserTimer <= 0)
-                {
+                if (laserTimer <= 0){
                     float lifeRatio = (float)NPC.life / (float)NPC.lifeMax;
-                    laserTimer = (int) MathHelper.Lerp(50,35,1 - lifeRatio);
-                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 7, ProjectileID.CultistBossFireBallClone, false, 1, 0, 0, NPC.Center, 10, 15);
+                    laserTimer = (int) MathHelper.Lerp(45,15,1 - lifeRatio);
+                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 15, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 0, 25);
                 }
-            }
-            else if (move == 2) // FLOAT SIDE ATTACK
-            {
+            }else if (move == 2){ // FLOAT SIDE ATTACK
                 Vector2 left = target.Center + new Vector2(-500, 0);
                 Vector2 right = target.Center + new Vector2(500, 0);
 
                 float leftDistance = (NPC.Center - right).Length();
                 float rightDistance = (left - NPC.Center).Length();
 
-                if (leftDistance < rightDistance)
-                {
+                if (leftDistance < rightDistance){
                     movedir = 1;
                     angle = -60;
                     FloatAbovePlayer(target.Center, NPC, 15, 30, right, 270, 0);
-                }
-                else
-                {
+                }else{
                     movedir = 2;
                     angle = 130;
                     FloatAbovePlayer(target.Center, NPC, 15, 30, left, 270, 0);
                 }
 
-                if (laserTimer <= 0)
-                {
+                if (laserTimer <= 0){
                     float lifeRatio = (float)NPC.life / (float)NPC.lifeMax;
-                    laserTimer = (int) MathHelper.Lerp(30,3,1 - lifeRatio);
-                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 10, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 5, (int) MathHelper.Lerp(25,10,1 - lifeRatio));
+                    laserTimer = (int) MathHelper.Lerp(40,3,1 - lifeRatio);
+                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 10, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 5, (int) MathHelper.Lerp(20,10,1 - lifeRatio));
                 }
-            }
-            else if (move == 3) // ROTATE AROUND ATTACK
-            {
-                angle+=2; // 0.75 seconds to rotate 90 degrees
-                if (movedir == 1)
-                {
+            }else if (move == 3){ // SPIN AROUND ATTACK
+                angle+=2;
+                if (movedir == 1){
                     FloatAbovePlayer(target.Center, NPC, 13, 10, target.Center + new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(angle))*380, 270, 0);
-                }
-                else
-                {
+                }else{
                     FloatAbovePlayer(target.Center, NPC, 13, 10, target.Center + new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(angle))*350, 270, 0);
                 }
 
-                if (laserTimer <= 0)
-                {
+                if (laserTimer <= 0){
                     float lifeRatio = (float)NPC.life / (float)NPC.lifeMax;
                     laserTimer = (int) MathHelper.Lerp(25,10,1 - lifeRatio);
-                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 10, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 5, (int) MathHelper.Lerp(25,10,1 - lifeRatio));
+                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 20, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 3, 20);
                 }
             }
 
-            if (moveTimer == 0) // CHANGE ATTACKS
-            {
+            if (moveTimer <= 0){ // CHANGE ATTACKS
                 float lifeRatio = (float)NPC.life / (float)NPC.lifeMax;
                 
-                if (move == 1)
-                {
-                    laserTimer = (int) MathHelper.Lerp(30,3,1 - lifeRatio);
+                if (move == 1){
                     moveTimer = 300;
-
-                    move = 2;
-                }
-                else if (move == 2) //SPNN
-                {
+                    move++;
+                }else if (move == 2){
                     moveTimer = 200;
-                    laserTimer = (int) MathHelper.Lerp(25,10,1 - lifeRatio);
-                    
-                    move = 3;
-                }
-                else if (move == 3)
-                {
-                    angle = 0;
+                    move++;
+                }else if (move == 3){
                     moveTimer = 400;
-                    laserTimer = (int) MathHelper.Lerp(50,35,1 - lifeRatio);
-
-                    move = 1;
+                    angle = 0;
+                    move=1;
                 }
                 
-                if (lifeRatio < 0.5f) // Move faster below half hp
-                {
+                if (lifeRatio < 0.5f){ // Move faster below half hp
                     moveTimer = (moveTimer/2)+50;
                 }
             }
@@ -154,8 +126,7 @@ namespace Glagglerraria.Content.Bosses.Enphosian
 
         public static void FloatAbovePlayer(Vector2 lookAtPosition, NPC NPC, float speed, float inertia, Vector2 destination, float radians, float fault)
         {
-            if (NPC.WithinRange(destination, fault))
-            {
+            if (NPC.WithinRange(destination, fault)){
                 NPC.velocity *= 0.85f;
                 return;
             }
@@ -166,8 +137,7 @@ namespace Glagglerraria.Content.Bosses.Enphosian
 
             Vector2 moveTo = toAbovePlayerNormalized * speed;
             NPC.velocity = (NPC.velocity * (inertia - 1) + moveTo) / inertia;
-            if (lookAtPosition != Vector2.Zero)
-            {
+            if (lookAtPosition != Vector2.Zero){
                 NPC.rotation = toPlayer.ToRotation() + MathHelper.ToRadians(radians);
             }
 
@@ -178,8 +148,7 @@ namespace Glagglerraria.Content.Bosses.Enphosian
             Vector2 distance = targetPosition - startPosition;
             Vector2 distanceNormalized = distance.SafeNormalize(Vector2.UnitX);
             float angle = startAngle;
-            for (int i = 0; i < count; i++)
-            {
+            for (int i = 0; i < count; i++){
                 int projectile = Projectile.NewProjectile(source, startPosition, (distanceNormalized.RotatedBy(MathHelper.ToRadians(angle)) * speed).RotatedByRandom(MathHelper.ToRadians(radius)), type, damage, 1);
 
                 Main.projectile[projectile].tileCollide = hasTileCollide;
