@@ -14,8 +14,8 @@ namespace Glagglerraria.Content.Bosses.Enphosian
             NPC.aiStyle = -1;
             NPC.boss = true;
             NPC.damage = 25;
-            NPC.lifeMax = 2000;
-            NPC.life = 2000;
+            NPC.lifeMax = 2400;
+            NPC.life = 2400;
             NPC.defense = 3;
             NPC.width = 64;
             NPC.height = 64;
