@@ -99,7 +99,7 @@ namespace Glagglerraria.Content.Bosses.Enphosian
                 if (laserTimer <= 0){
                     float lifeRatio = (float)NPC.life / (float)NPC.lifeMax;
                     laserTimer = (int) MathHelper.Lerp(25,10,1 - lifeRatio);
-                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 20, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 3, 20);
+                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 14, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 3, 20);
                 }
             }
 
