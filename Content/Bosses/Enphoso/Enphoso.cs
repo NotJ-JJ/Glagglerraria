@@ -63,7 +63,7 @@ namespace Glagglerraria.Content.Bosses.Enphoso
                 if (laserTimer <= 0){
                     float lifeRatio = (float)NPC.life / (float)NPC.lifeMax;
                     laserTimer = (int) MathHelper.Lerp(23,10,1 - lifeRatio);
-                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 20, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 0, 50);
+                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 20, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 0, 30);
                 }
             }else if (move == 2){ // FLOAT SIDE ATTACK
                 Vector2 left = target.Center + new Vector2(-500, 0);
@@ -83,7 +83,7 @@ namespace Glagglerraria.Content.Bosses.Enphoso
                 if (laserTimer <= 0){
                     float lifeRatio = (float)NPC.life / (float)NPC.lifeMax;
                     laserTimer = (int) MathHelper.Lerp(25,1,1 - lifeRatio);
-                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 18, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 3, (int) MathHelper.Lerp(65,30,1 - lifeRatio));
+                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 18, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 3, (int) MathHelper.Lerp(35,15,1 - lifeRatio));
                 }
             }else if (move == 3){ // SPIN AROUND ATTACK
                 angle+=3;
@@ -92,8 +92,8 @@ namespace Glagglerraria.Content.Bosses.Enphoso
                 FloatAbovePlayer(target.Center, NPC, movespeed, 5, target.Center + new Vector2(1, 1).RotatedBy(MathHelper.ToRadians(angle))*400, 270, 0);
 
                 if (laserTimer <= 0){
-                    laserTimer = (int) MathHelper.Lerp(16,6,1 - lifeRatio);
-                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 23, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 2, 40);
+                    laserTimer = (int) MathHelper.Lerp(25,5,1 - lifeRatio);
+                    ShootProjectile(NPC.GetSource_FromAI(), target.Center, 19, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 2, 25);
                 }
             }
 
