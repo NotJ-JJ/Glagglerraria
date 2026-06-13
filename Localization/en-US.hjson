@@ -99,6 +99,9 @@ Mods: {
 			}
 		}
 
-		NPCs.Enphosian.DisplayName: Enphosian
+		NPCs: {
+			Enphosian.DisplayName: Enphosian
+			Enphoso.DisplayName: Enphoso
+		}
 	}
 }
