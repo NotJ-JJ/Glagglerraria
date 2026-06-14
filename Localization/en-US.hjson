@@ -75,6 +75,16 @@ Mods: {
 				DisplayName: Gazo Pistol
 				Tooltip: ""
 			}
+
+			PaintballGunAmmo: {
+				DisplayName: Paintball Gun Ammo
+				Tooltip: ""
+			}
+
+			PaintballGun: {
+				DisplayName: Paintball Gun
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -85,6 +95,7 @@ Mods: {
 			GoobabGunBullet.DisplayName: Goobab Gun Bullet
 			GazoPistolBullet.DisplayName: Gazo Pistol Bullet
 			GuitarGlooble.DisplayName: Guitar Glooble
+			PaintballGunBullet.DisplayName: Paintball Gun Bullet
 		}
 
 		Buffs: {

@@ -66,8 +66,8 @@ namespace Glagglerraria.Content.Bosses.Enphoso
                     ShootProjectile(NPC.GetSource_FromAI(), target.Center, 20, ProjectileID.AncientDoomProjectile, false, 1, 0, 0, NPC.Center, 0, 30);
                 }
             }else if (move == 2){ // FLOAT SIDE ATTACK
-                Vector2 left = target.Center + new Vector2(-500, 0);
-                Vector2 right = target.Center + new Vector2(500, 0);
+                Vector2 left = target.Center + new Vector2(-600, 0);
+                Vector2 right = target.Center + new Vector2(600, 0);
 
                 float leftDistance = (NPC.Center - right).Length();
                 float rightDistance = (left - NPC.Center).Length();
